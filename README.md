@@ -129,14 +129,14 @@ You will see the following plots during execution:
 - Feature Importance Bar Chart (ML Model)  
 
 ### Success Rates
-![Success Rate Visualization](Findings/Success Rides.png)
+![Success Rate Visualization](Findings/Success_Rides.png)
 
 - The analysis reveals that success rates are highly consistent across all vehicle types, with Uber XL, Bike, and Go Mini showing the highest—though only marginally better—performance. 
 - Completion rates for bookings are strong at 62%, with cancellations accounting for 25%. 
 - Time of day and day of week have minimal impact on booking success rates, indicating stable performance throughout.
 
 ### Revenue Analysis
-![Revenue Patterns Visualization](Findings/Revenue Patterns.png)
+![Revenue Patterns Visualization](Findings/Revenue_Patterns.png)
 
 - Revenue analysis shows Auto generates the highest total revenue, with Go Mini and Go Sedan following. Uber XL yields the least revenue overall.  
 - The average revenue per hour doesn’t change much throughout the day, staying mostly between ₹500 and ₹520, which means there aren’t any big peaks or drops in hourly earnings.
@@ -144,7 +144,7 @@ You will see the following plots during execution:
 - The revenue vs distance scatter plot shows that for any given distance, the revenue can vary a lot, so trip distance alone isn’t a strong predictor of revenue.
 
 ### Model's Performance
-![Model Prediction Analysis](Findings/Model Prediction.png)
+![Model Prediction Analysis](Findings/Model_Prediction.png)
 
 - Ideally, points should cluster along the diagonal dashed line (where predicted = actual).
 - In the above plot, most points lie below the diagonal, suggesting the model frequently underpredicts high revenue values and compresses predictions for a majority of rides.
@@ -152,13 +152,13 @@ You will see the following plots during execution:
 - Model Metrics (R**2 = -0.044, MSE= Rs 408.16) suggests that model is not performing good and further fine tuning is required.
 
 ### Feature Importance
-![Feature Importance](Findings/Feature Importance.png)
+![Feature Importance](Findings/Feature_Importance.png)
 
 - Location (pickup/drop-off) is the dominant predictor. This could reflect local fare structures, regional ride patterns, or neighborhood-level demand differences.
 - Vehicle type and time features (hour, month) matter, but not as strongly.
 - Weekend status is least important, indicating similar ride values regardless of weekday vs. weekend.
 
-### Conclusion
+### ⚡ Conclusion
 
 - **Ride success rates** are consistently high (around 62%) across all vehicle types (Uber XL, Bike, Go Mini, etc.), with only marginal differences among them, indicating that vehicle choice does not significantly impact whether a booking is completed.
 
