@@ -158,7 +158,7 @@ You will see the following plots during execution:
 - Vehicle type and time features (hour, month) matter, but not as strongly.
 - Weekend status is least important, indicating similar ride values regardless of weekday vs. weekend.
 
-### ⚡ Conclusion
+## ⚡ Conclusion
 
 - **Ride success rates** are consistently high (around 62%) across all vehicle types (Uber XL, Bike, Go Mini, etc.), with only marginal differences among them, indicating that vehicle choice does not significantly impact whether a booking is completed.
 
