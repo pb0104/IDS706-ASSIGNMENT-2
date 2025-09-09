@@ -7,7 +7,6 @@
 
 This repository contains the **NCR Ride Bookings Analysis & Revenue Prediction** project. It analyzes ride booking data to uncover patterns in ride success, cancellations, and revenue, and builds a machine learning model to predict booking revenue from ride and temporal features. The project illustrates end-to-end data science workflows, including data cleaning, exploratory analysis, visualization, and machine learning.
 
-***
 
 ## 📥 Dataset Source
 
@@ -15,8 +14,6 @@ The dataset analyzed in this project is publicly available on Kaggle:
 [https://www.kaggle.com/datasets/yashdevladdha/uber-ride-analytics-dashboard](https://www.kaggle.com/datasets/yashdevladdha/uber-ride-analytics-dashboard)
 
 Thanks to @yashdevladdha for sharing this data on Kaggle!
-
----
 
 ## 📁 Project Files
 
@@ -28,8 +25,6 @@ ncr-ride-analysis/
 ├── README.md              # This documentation file
 ├── requirements.txt       # Python package dependencies (optional)
 ```
-
----
 
 ## ✨ Features
 
@@ -45,7 +40,6 @@ ncr-ride-analysis/
 - **Machine Learning** model (Random Forest) for predicting ride revenue  
 - Feature importance insights from the prediction model  
 
----
 
 ## ⚙️ Setup Instructions
 
@@ -65,8 +59,6 @@ make install
 make all
 ```
 
----
-
 ## 🚀 How to Run
 
 Simply execute the analysis script:
@@ -82,7 +74,6 @@ This will:
 - Display interactive plots for key metrics and distributions  
 - Train and evaluate a Random Forest regression model with output performance metrics and feature importance plots  
 
----
 
 ## 🔄 Analysis Workflow
 
@@ -103,7 +94,6 @@ This will:
    - Trains Random Forest regressor and reports R² and RMSE  
    - Visualizes actual vs predicted revenue and feature importances  
 
----
 
 ## 🔍 Key Findings
 
@@ -127,7 +117,6 @@ This will:
 
 - Revenue varies significantly even for rides of similar distances, suggesting trip distance alone is a poor predictor of booking value.  
 
----
 
 ## 📈 Visualizations
 
@@ -144,7 +133,6 @@ You will see the following plots during execution:
 - Actual vs Predicted Revenue Scatter Plot (ML Model)  
 - Feature Importance Bar Chart (ML Model)  
 
----
 
 ## 📚 Additional Resources
 
@@ -159,19 +147,8 @@ This notebook offers:
 
 If you want a guided and interactive experience exploring the data and results visually, working through the `Analysis.ipynb` notebook is highly recommended.
 
----
+## 📜 Author
 
-## 🛠️ Troubleshooting
-
-- If you see warnings about categorical units in plots, ensure plotting columns like `Hour` are properly numeric before plotting.  
-- Ensure `ncr_ride_bookings.csv` is present in the working directory to avoid file loading errors.  
-- Install required dependencies via pip if import errors occur.  
-
----
-
-## 📜 Author & License
-
-- Author: [Your Name]  
-- Date: September 2025  
-- License: [Specify License if any]  
+- Author: PRANSHUL BHATNAGAR  
+- Date: 08 September 2025  
 
