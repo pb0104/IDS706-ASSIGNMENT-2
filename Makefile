@@ -17,5 +17,3 @@ help:
 	@echo "  make run          - Run main analysis (includes pandas vs polars)"
 	@echo "  make all          - Run complete workflow"
 	@echo "  make help         - Show this help message"
-
-.PHONY: install run all help
