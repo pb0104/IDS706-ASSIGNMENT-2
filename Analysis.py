@@ -30,6 +30,15 @@ logging.basicConfig(
 logging.getLogger('matplotlib').setLevel(logging.WARNING)
 
 def load_data(filepath):
+    """
+    Load the ride bookings dataset into a Polars DataFrame.
+    Args:
+        filepath (str): Path to the CSV file containing the dataset.
+
+    Returns:
+        pl.DataFrame: A Polars DataFrame with the loaded data.
+    """
+
     if not os.path.isfile(filepath):
         logging.error(f"File not found: {filepath}")
         sys.exit(1)
@@ -38,6 +47,15 @@ def load_data(filepath):
     return df
 
 def check_duplicates(df):
+    """
+    Check for duplicate rows in a Polars DataFrame and remove them.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame to check for duplicates.
+
+    Returns:
+        pl.DataFrame: DataFrame with duplicate rows removed.
+    """
+
     dup_count = df.is_duplicated().sum()
     logging.info("Checking for duplicates...")
     print(f"Duplicate rows: {dup_count}")
@@ -47,6 +65,15 @@ def check_duplicates(df):
     return df
 
 def parse_datetime(df):
+    """
+    Parse and combine separate 'Date' and 'Time' columns into a single datetime column.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame containing 'Date' and 'Time' columns.
+
+    Returns:
+        pl.DataFrame: DataFrame with a new 'DateTime' column of type `Datetime`.
+    """
+
     logging.info("Parsing Date Time Columns...")
     df = df.with_columns([
         pl.col("Date").alias("Date_str"),
@@ -58,6 +85,19 @@ def parse_datetime(df):
     return df
 
 def add_time_features(df):
+    """
+    Extract and add time-based features from the 'DateTime' column.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame with a 'DateTime' column.
+
+    Returns:
+        pl.DataFrame: DataFrame with new time-related columns:
+            - 'Hour' (int): Hour of the day (0–23).
+            - 'Month' (int): Month of the year (1–12).
+            - 'IsWeekend' (bool): True if Saturday or Sunday, otherwise False.
+            - 'DayOfWeek' (str): Name of the day (e.g., "Monday").
+    """
+
     logging.info("Extracting Date Time Features...")
     df = df.with_columns([
         pl.col("DateTime").dt.hour().alias("Hour"),
@@ -73,6 +113,15 @@ def add_time_features(df):
     return df
 
 def clean_numeric(df):
+    """
+    Clean and standardize numeric columns by casting them to float type.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame.
+
+    Returns:
+        pl.DataFrame: DataFrame with specified numeric columns cast to Float64.
+    """
+
     logging.info("Cleaning Numeric Columns...")
     numeric_cols = ["Booking Value", "Ride Distance", "Driver Ratings", "Customer Rating"]
     for col in numeric_cols:
@@ -83,6 +132,19 @@ def clean_numeric(df):
     return df
 
 def create_flags(df):
+    """
+    Generate boolean flags and status categories from booking information.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame with booking-related columns.
+
+    Returns:
+        pl.DataFrame: DataFrame with new columns:
+            - 'Is_Successful' (bool): True if booking was completed.
+            - 'Is_Cancelled_Customer' (bool): True if cancelled by customer.
+            - 'Is_Cancelled_Driver' (bool): True if cancelled by driver.
+            - 'Status_Category' (str): One of {"Completed", "Cancelled", "No Driver Found", "Other"}.
+    """
+     
     logging.info("Creating Flags and Status Categories...")
     df = df.with_columns([
         (pl.col("Booking Status") == "Completed").alias("Is_Successful"),
@@ -99,6 +161,17 @@ def create_flags(df):
     return df
 
 def basic_metrics(df):
+    """
+    Compute and display key business metrics from ride booking data.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame containing booking information 
+                           and derived flags such as 'Is_Successful', 
+                           'Is_Cancelled_Customer', and 'Is_Cancelled_Driver'.
+
+    Returns:
+        None: Prints metrics to the console.
+    """
+
     logging.info("Calculating Useful Business Metrics...")
     total_rides = df.height
     successful_rides = df.filter(pl.col("Is_Successful")).height
@@ -112,6 +185,23 @@ def basic_metrics(df):
     print(f"-> Driver cancellations: {df['Is_Cancelled_Driver'].sum()}")
 
 def plot_success_patterns(df):
+    """
+    Visualize booking success patterns across multiple dimensions.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame with derived features such as
+                           'Is_Successful', 'Hour', 'DayOfWeek', 'Vehicle Type',
+                           and 'Status_Category'.
+
+    Returns:
+        None: Displays a matplotlib figure with four subplots.
+
+    Subplots Generated:
+        - Success Rate by Vehicle Type (bar chart).
+        - Success Rate by Hour of Day (line plot).
+        - Success Rate by Day of Week (bar chart).
+        - Overall Booking Status Distribution (pie chart).
+    """
+
     fig, axes = plt.subplots(2, 2, figsize=(15, 10))
 
     # Success rate by Vehicle Type
@@ -177,6 +267,23 @@ def plot_success_patterns(df):
     plt.show()
 
 def plot_revenue_analysis(df):
+    """
+    Visualize revenue patterns across vehicle types, time, and ride distance.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame with derived columns such as 
+                           'Is_Successful', 'Vehicle Type', 'Hour', 
+                           'Booking Value', and 'Ride Distance'.
+
+    Returns:
+        None: Displays a matplotlib figure with four subplots.
+
+    Subplots Generated:
+        - Total Revenue by Vehicle Type (bar chart).
+        - Average Revenue by Hour of Day (line plot).
+        - Revenue Distribution (histogram).
+        - Revenue vs Ride Distance (scatter plot).
+    """
+
     successful_rides = df.filter(pl.col("Is_Successful"))
     vehicle_types = df["Vehicle Type"].unique()
     vehicle_revenue_data = []
@@ -231,6 +338,18 @@ def plot_revenue_analysis(df):
     plt.show()
 
 def revenue_prediction_model(df):
+    """
+    Build and evaluate a revenue prediction model for successful rides using Random Forest.
+    Args:
+        df (pl.DataFrame): Input Polars DataFrame with columns including 
+                           'Is_Successful', 'Booking Value', 'Hour', 'Month',
+                           'IsWeekend', 'Vehicle Type', 'Pickup Location', and 'Drop Location'.
+
+    Returns:
+        None: Logs model performance metrics (R², RMSE) and displays a scatter plot 
+              comparing actual vs predicted revenue.
+    """
+
     logging.info("Building Revenue Prediction Model...")
     df_revenue_model = df.filter((pl.col("Is_Successful") == True) & pl.col("Booking Value").is_not_null())
     n_samples = df_revenue_model.height
@@ -290,6 +409,17 @@ def revenue_prediction_model(df):
     plt.show()
 
 def run_pipeline(input_file):
+    """
+    Execute the full ride analysis pipeline from data loading to revenue prediction.
+
+    Args:
+        input_file (str): Path to the input data file to be processed.
+
+    Returns:
+        None: Prints initial data checks, logs key metrics, generates visualizations,
+              and builds a revenue prediction model.
+    """
+
     logging.info("Starting ride analysis pipeline.")
     df = load_data(input_file)
     print("Here's how are dataframe looks like:")
@@ -304,6 +434,7 @@ def run_pipeline(input_file):
     plot_revenue_analysis(df)
     revenue_prediction_model(df)
     logging.info("Pipeline complete.")
+
 
 if __name__ == "__main__":
     file_path= "ncr_ride_bookings.csv"
