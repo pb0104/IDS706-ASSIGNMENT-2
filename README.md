@@ -8,12 +8,14 @@
 This repository contains the **NCR Ride Bookings Analysis & Revenue Prediction** project. It analyzes ride booking data to uncover patterns in ride success, cancellations, and revenue, and builds a machine learning model to predict booking revenue from ride and temporal features. The project illustrates end-to-end data science workflows, including data cleaning, exploratory analysis, visualization, and machine learning.
 
 
+
 ## 📥 Dataset Source
 
 The dataset analyzed in this project is publicly available on Kaggle:  
 [https://www.kaggle.com/datasets/yashdevladdha/uber-ride-analytics-dashboard](https://www.kaggle.com/datasets/yashdevladdha/uber-ride-analytics-dashboard)
 
 Thanks to @yashdevladdha for sharing this data on Kaggle!
+
 
 ## 📁 Project Files
 
@@ -40,6 +42,7 @@ ncr-ride-analysis/
   - Revenue distribution and relationship to ride distance  
 - **Machine Learning** model (Random Forest) for predicting ride revenue  
 - Feature importance insights from the prediction model  
+
 
 
 ## ⚙️ Setup Instructions
