@@ -112,23 +112,11 @@ This will:
 - **Average ride value:** ₹508.18  
 - **Average ride distance:** 26 km  
 - **Average ratings:** Drivers 4.23/5, Customers 4.40/5  
-- **Cancellations:** Customers 10,500, Drivers 27,000  
-
-- Success rates are stable across vehicle types, times of day, and days of week. Uber XL, Bike, and Go Mini vehicles show marginally higher success rates.  
-
-- Revenue analysis shows Auto generates the highest total revenue, with Go Mini and Go Sedan following. Uber XL yields the least revenue overall.  
-
-- Average revenue is fairly constant over the hours in a day (₹500-₹520).  
-
-- The revenue distribution is skewed toward many low-value rides, with few high-value bookings.  
-
-- Revenue varies significantly even for rides of similar distances, suggesting trip distance alone is a poor predictor of booking value.  
-
+- **Cancellations:** Customers 10,500, Drivers 27,000 
 
 ## 📈 Visualizations
 
 You will see the following plots during execution:
-
 - Success Rate by Vehicle Type  
 - Success Rate by Hour of Day  
 - Success Rate by Day of Week  
@@ -139,6 +127,52 @@ You will see the following plots during execution:
 - Revenue vs Distance Scatter Plot  
 - Actual vs Predicted Revenue Scatter Plot (ML Model)  
 - Feature Importance Bar Chart (ML Model)  
+
+### Success Rates
+![Success Rate Visualization](Findings/Success Rides.png)
+
+- The analysis reveals that success rates are highly consistent across all vehicle types, with Uber XL, Bike, and Go Mini showing the highest—though only marginally better—performance. 
+- Completion rates for bookings are strong at 62%, with cancellations accounting for 25%. 
+- Time of day and day of week have minimal impact on booking success rates, indicating stable performance throughout.
+
+### Revenue Analysis
+![Revenue Patterns Visualization](Findings/Revenue Patterns.png)
+
+- Revenue analysis shows Auto generates the highest total revenue, with Go Mini and Go Sedan following. Uber XL yields the least revenue overall.  
+- The average revenue per hour doesn’t change much throughout the day, staying mostly between ₹500 and ₹520, which means there aren’t any big peaks or drops in hourly earnings.
+- Most individual bookings have lower values, as seen in the revenue distribution histogram, and high-value bookings are much less common.
+- The revenue vs distance scatter plot shows that for any given distance, the revenue can vary a lot, so trip distance alone isn’t a strong predictor of revenue.
+
+### Model's Performance
+![Model Prediction Analysis](Findings/Model Prediction.png)
+
+- Ideally, points should cluster along the diagonal dashed line (where predicted = actual).
+- In the above plot, most points lie below the diagonal, suggesting the model frequently underpredicts high revenue values and compresses predictions for a majority of rides.
+- The model predicts the lower and middle revenue band relatively well, but struggles with the high-value outliers (underfitting for expensive rides).
+- Model Metrics (R**2 = -0.044, MSE= Rs 408.16) suggests that model is not performing good and further fine tuning is required.
+
+### Feature Importance
+![Feature Importance](Findings/Feature Importance.png)
+
+- Location (pickup/drop-off) is the dominant predictor. This could reflect local fare structures, regional ride patterns, or neighborhood-level demand differences.
+- Vehicle type and time features (hour, month) matter, but not as strongly.
+- Weekend status is least important, indicating similar ride values regardless of weekday vs. weekend.
+
+### Conclusion
+
+- **Ride success rates** are consistently high (around 62%) across all vehicle types (Uber XL, Bike, Go Mini, etc.), with only marginal differences among them, indicating that vehicle choice does not significantly impact whether a booking is completed.
+
+- **Time of day and day of week have minimal effect on ride completion:** Success rates remain stable hourly and daily, suggesting operational reliability and no major rush-hour or weekend bottlenecks.
+
+- Most **ride failures** are due to **cancellations (25%)**, with only a small proportion attributed to **"No Driver Found" or other causes (13% combined)**, highlighting the importance of customer and driver retention and experience.
+
+- **Revenue is most strongly influenced by pickup and drop-off locations:** These are the top predictors in your Random Forest model, revealing that where a trip begins and ends has the largest impact on booking value, likely due to route length, zone-based pricing, and local demand.
+
+- **Vehicle type** and **time features (hour, month)** also contribute to revenue differences, but to a lesser extent than location. Weekend status has little to no impact on booking value.
+
+- **There is high variability in revenue even for similar trip distances:** Distance alone cannot reliably predict ride revenue, indicating the influence of other factors such as traffic, surge pricing, and trip-specific characteristics.
+
+- The machine learning model predicts bulk ride revenues well but tends to underpredict rare high-value trips, suggesting potential for model refinement or the inclusion of additional features like dynamic pricing and ride type.
 
 
 ## 📚 Additional Resources
