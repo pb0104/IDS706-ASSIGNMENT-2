@@ -103,9 +103,7 @@ This will:
 
 
 ## 🔍 Key Findings
-
 - Missing values appearing in columns like bookings, ratings, and payment methods are expected and consistent with ride cancellations and booking outcomes. Related columns such as cancellation flags and reasons appear mutually exclusively, logically reflecting event occurrence and context.  
-
 - **Total rides:** 150,000  
 - **Successful rides:** 93,000 (62% success rate)  
 - **Total revenue (successful rides):** ₹47,260,574  
