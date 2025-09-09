@@ -21,6 +21,7 @@ Thanks to @yashdevladdha for sharing this data on Kaggle!
 ncr-ride-analysis/
 ├── Analysis.py             # Main data analysis and modeling script
 ├── Analysis.ipynb          # Detailed step-by-step Jupyter notebook walkthrough
+├── Makefile                # Build automation and commands
 ├── ncr_ride_bookings.csv  # Dataset file (not included here)
 ├── README.md              # This documentation file
 ├── requirements.txt       # Python package dependencies (optional)
@@ -83,7 +84,13 @@ This will:
    - Parses dates and times, deriving hour, weekday, month, and weekend flags  
 
 2. **Business Metrics Computation**  
-   - Success rate, total and average revenue, ratings, and cancellations counts  
+   - Success rate, 
+   - Total Revenue
+   - Average Revenue
+   - Average Ride Distance
+   - Average Driver Rating
+   - Average Customer Ratings
+   - Cancellations counts  
 
 3. **Data Visualization**  
    - Success rate and cancellation patterns by vehicle type, time, and day  
