@@ -105,6 +105,44 @@ make up
 
 ---
 
+## Testing
+
+This project includes **unit, integration, and system tests** to ensure the data pipeline, feature engineering, and revenue prediction model work correctly.
+
+### Run Tests
+
+To run all tests with coverage:
+
+```bash
+make test
+```
+
+This will:
+
+* Execute `Test_Analysis.py`
+* Run all **unit, integration, and system tests**
+* Generate a **coverage report** showing which lines of code are tested
+* Verify that plots in the revenue prediction model are generated
+
+### Test Categories
+
+| Category              | Description                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Unit Tests**        | Tests core functions: `parse_datetime`, `add_time_features`, `clean_numeric`, `create_flags`, `check_duplicates` |
+| **Integration Tests** | Tests the combination of functions and full pipeline transformations on sample data                              |
+| **System Tests**      | End-to-end tests including revenue prediction model execution, plotting, and pipeline validation                 |
+
+### Example Test Output
+![Test Results](Findings/Test_Results.png)
+
+### Notes
+
+* `matplotlib` plots in the revenue model are **mocked** during tests to avoid opening GUI windows.
+* Integration tests use **temporary CSV files** to simulate reading datasets without modifying your original data.
+* Increasing rows in synthetic datasets ensures that train/test splits do not fail (`ValueError` for too few samples).
+
+---
+
 ## 🔄 Analysis Workflow
 
 1. **Data Loading & Cleaning**  
