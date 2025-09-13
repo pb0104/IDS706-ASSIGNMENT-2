@@ -22,11 +22,13 @@ Thanks to @yashdevladdha for sharing this data on Kaggle!
 ```
 ncr-ride-analysis/
 ├── Analysis.py             # Main data analysis and modeling script
+├── Test_Analysis.py        # Unit and integration tests for Analysis.py
 ├── Analysis.ipynb          # Detailed step-by-step Jupyter notebook walkthrough
 ├── Makefile                # Build automation and commands
-├── ncr_ride_bookings.csv  # Dataset file (not included here)
+├── Dockerfile              # Docker configuration for dev container
+├── ncr_ride_bookings.csv  # Dataset file
 ├── README.md              # This documentation file
-├── requirements.txt       # Python package dependencies (optional)
+├── requirements.txt       # Python package dependencies
 ```
 
 ## ✨ Features
@@ -57,27 +59,51 @@ Install required Python packages from requirements.txt using the below command:
 ```
 make install
 ```
-
-### Run the analysis
-```
-make all
-```
-
 ## 🚀 How to Run
 
-Simply execute the analysis script:
+### 1. Run the analysis locally:
 
-```
+```bash
 make run
 ```
 
-This will:
+This executes `Analysis.py` on your host machine, performing:
 
-- Load and clean the data  
-- Print summary statistics  
-- Display interactive plots for key metrics and distributions  
-- Train and evaluate a Random Forest regression model with output performance metrics and feature importance plots  
+* Data loading and cleaning
+* Summary statistics
+* Interactive plots for key metrics
+* Training and evaluation of a Random Forest regression model with performance metrics and feature importance plots
 
+### 2. Run the analysis inside Docker:
+
+```bash
+make build          # Build the dev container
+make run-docker     # Run Analysis.py inside the container
+```
+
+Or in a single step:
+
+```bash
+make up
+```
+---
+## Makefile Commands
+
+| Command              | Description                                                      |
+| -------------------- | ---------------------------------------------------------------- |
+| `make build`         | Build the Docker dev container                                   |
+| `make run-container` | Start an interactive Docker container with mounted project files |
+| `make run-docker`    | Run `Analysis.py` inside Docker                                  |
+| `make up`            | Build the Docker image and run the analysis inside container     |
+| `make run`           | Run `Analysis.py` locally on host machine                        |
+| `make install`       | Install Python dependencies (`requirements.txt` + test packages) |
+| `make test`          | Run all tests with coverage                                      |
+| `make stop`          | Stop a running container                                         |
+| `make clean`         | Remove Docker image                                              |
+| `make all`           | Install dependencies and run analysis locally                    |
+| `make help`          | Show all Makefile commands with descriptions                     |
+
+---
 
 ## 🔄 Analysis Workflow
 
