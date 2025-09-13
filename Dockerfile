@@ -1,5 +1,4 @@
-# 1) Base image with Python 3.12 + devcontainer utilities
-FROM mcr.microsoft.com/devcontainers/python:1-3.12-bullseye
+FROM python:3.12-slim
 
 # 2) Install OS-level dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
