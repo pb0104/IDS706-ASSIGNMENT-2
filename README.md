@@ -1,3 +1,4 @@
+
 # NCR Ride Bookings Analysis & Revenue Prediction
 
 ## 🎓 Project Overview
@@ -7,7 +8,8 @@
 
 This repository contains the **NCR Ride Bookings Analysis & Revenue Prediction** project. It analyzes ride booking data to uncover patterns in ride success, cancellations, and revenue, and builds a machine learning model to predict booking revenue from ride and temporal features. The project illustrates end-to-end data science workflows, including data cleaning, exploratory analysis, visualization, and machine learning.
 
-
+## CI/CD Badge
+[![Uber Ride Data Analysis](https://github.com/pb0104/IDS706-ASSIGNMENT-2/actions/workflows/main.yml/badge.svg)](https://github.com/pb0104/IDS706-ASSIGNMENT-2/actions/workflows/main.yml)
 
 ## 📥 Dataset Source
 
