@@ -58,6 +58,25 @@ up:
 # Run complete workflow
 all: install run
 
+# Format code using black
+format:
+	@echo "🎨 Formatting code with black..."
+	python -m black *.py
+
+# Lint code using flake8
+lint:
+	@echo "🔍 Linting code with flake8..."
+	python -m flake8 *.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+# Format and lint together
+format-lint: format lint
+	@echo "✅ Code formatting and linting complete"
+	
+# Continuous Integration target
+ci: install test
+	@echo "✅ CI pipeline complete"
+
+
 # Help command
 help:
 	@echo "Available commands:"
@@ -71,4 +90,8 @@ help:
 	@echo "  make run-docker   - Run main analysis inside Docker"
 	@echo "  make test        - Run all tests with verbose output and coverage"
 	@echo "  make all          - Run complete workflow"
+	@echo "  make format       - Format code with black"
+	@echo "  make lint         - Lint code with flake8"
+	@echo "  make format-lint  - Format and lint code"
+	@echo "  make ci           - Run CI pipeline"
 	@echo "  make help         - Show this help message"
