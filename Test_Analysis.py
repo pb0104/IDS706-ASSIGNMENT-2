@@ -8,10 +8,10 @@ import polars as pl
 from Analysis import (
     parse_datetime,
     add_time_features,
-    clean_numeric,
-    create_flags,
-    check_duplicates,
-    basic_metrics,
+    clean_numeric_columns,
+    create_boolean_flags,
+    check_duplicates_polars,
+    basic_business_metrics,
     run_pipeline,
     revenue_prediction_model,
 )
@@ -47,17 +47,17 @@ class TestUnitTests(unittest.TestCase):
         self.assertIn("DayOfWeek", enriched.columns)
 
     def test_clean_numeric(self):
-        cleaned = clean_numeric(self.df)
+        cleaned = clean_numeric_columns(self.df)
         self.assertEqual(cleaned["Booking Value"].dtype, pl.Float64)
 
     def test_create_flags(self):
-        flags = create_flags(self.df)
+        flags = create_boolean_flags(self.df)
         self.assertIn("Is_Successful", flags.columns)
         self.assertIn("Status_Category", flags.columns)
 
     def test_check_duplicates(self):
         dup_df = self.df.vstack(self.df)
-        deduped = check_duplicates(dup_df)
+        deduped = check_duplicates_polars(dup_df)
         self.assertEqual(deduped.shape[0], 2)
 
 
@@ -85,9 +85,9 @@ class TestIntegrationTests(unittest.TestCase):
     def test_basic_metrics_integration(self):
         parsed = parse_datetime(self.df)
         enriched = add_time_features(parsed)
-        enriched = clean_numeric(enriched)
-        enriched = create_flags(enriched)
-        basic_metrics(enriched)
+        enriched = clean_numeric_columns(enriched)
+        enriched = create_boolean_flags(enriched)
+        basic_business_metrics(enriched)
 
     def test_pipeline_data_transform(self):
         # Write dataframe to a temporary CSV file
@@ -126,8 +126,8 @@ class TestSystemTests(unittest.TestCase):
     def test_revenue_model_end_to_end(self, mock_show):
         parsed = parse_datetime(self.df)
         enriched = add_time_features(parsed)
-        enriched = clean_numeric(enriched)
-        enriched = create_flags(enriched)
+        enriched = clean_numeric_columns(enriched)
+        enriched = create_boolean_flags(enriched)
 
         revenue_prediction_model(enriched)
         self.assertTrue(mock_show.called)
@@ -158,8 +158,8 @@ class TestCoverageBoost(unittest.TestCase):
     def test_revenue_prediction_model_runs(self, mock_show):
         df = parse_datetime(self.df)
         df = add_time_features(df)
-        df = clean_numeric(df)
-        df = create_flags(df)
+        df = clean_numeric_columns(df)
+        df = create_boolean_flags(df)
 
         # Call the revenue prediction model
         revenue_prediction_model(df)

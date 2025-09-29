@@ -47,7 +47,7 @@ def load_data(filepath):
     return df
 
 
-def check_duplicates(df):
+def check_duplicates_polars(df):
     """
     Check for duplicate rows in a Polars DataFrame and remove them.
     Args:
@@ -129,7 +129,7 @@ def add_time_features(df):
     return df
 
 
-def clean_numeric(df):
+def clean_numeric_columns(df):
     """
     Clean and standardize numeric columns by casting them to float type.
     Args:
@@ -152,7 +152,7 @@ def clean_numeric(df):
     return df
 
 
-def create_flags(df):
+def create_boolean_flags(df):
     """
     Generate boolean flags and status categories from booking information.
     Args:
@@ -193,7 +193,7 @@ def create_flags(df):
     return df
 
 
-def basic_metrics(df):
+def basic_business_metrics(df):
     """
     Compute and display key business metrics from ride booking data.
     Args:
@@ -560,12 +560,12 @@ def run_pipeline(input_file):
     df = load_data(input_file)
     print("Here's how are dataframe looks like:")
     print(df.head())  # for initial sanity check
-    df = check_duplicates(df)
+    df = check_duplicates_polars(df)
     df = parse_datetime(df)
     df = add_time_features(df)
-    df = clean_numeric(df)
-    df = create_flags(df)
-    basic_metrics(df)
+    df = clean_numeric_columns(df)
+    df = create_boolean_flags(df)
+    basic_business_metrics(df)
     plot_success_patterns(df)
     plot_revenue_analysis(df)
     revenue_prediction_model(df)
