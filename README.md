@@ -242,6 +242,22 @@ You will see the following plots during execution:
 
 - The machine learning model predicts bulk ride revenues well but tends to underpredict rare high-value trips, suggesting potential for model refinement or the inclusion of additional features like dynamic pricing and ride type.
 
+## Code Refactoring
+As part of refactoring the `Analysis.py` script to improve code clarity and modularity, several core functions were renamed. 
+- The function responsible for removing duplicate entries, previously called `check_duplicates`, is now named **`check_duplicates_polars`** to explicitly acknowledge the use of the Polars DataFrame library.
+
+- The column standardization function `clean_numeric` was renamed to **`clean_numeric_columns`**, more precisely describing its action of casting specific data columns to numeric types. 
+
+- Furthermore, the function `create_flags` was updated to **`create_boolean_flags`** to clarify that it generates boolean columns derived from booking statuses. 
+
+- Finally, the function `basic_metrics`, which calculates platform performance indicators, was renamed to **`basic_business_metrics`** to emphasize the commercial relevance of the statistics computed.
+
+![Analysis.py](Findings/Analysis(1).png)
+![](Findings/Analysis(2).png)
+
+![Test_Analysis.py](Findings/Test_Analysis(1).png)
+[](Findings/Test_Analysis(2).png)
+
 
 ## 📚 Additional Resources
 
