@@ -104,6 +104,9 @@ make up
 | `make stop`          | Stop a running container                                         |
 | `make clean`         | Remove Docker image                                              |
 | `make all`           | Install dependencies and run analysis locally                    |
+| `make format`        | Format code with black                                           |
+| `make lint`          | lint code with flake8                                            |
+| `make format-lint`   | Format and Lint code                                             |
 | `make help`          | Show all Makefile commands with descriptions                     |
 
 ---
